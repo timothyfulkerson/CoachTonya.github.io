@@ -544,7 +544,7 @@ section {
   width: 100%;
   padding: 0.8rem;
   background: var(--bg-tertiary);
-  border: 2px solid rgba(220, 100, 20, 0.45);
+  border: 1px solid rgba(220, 100, 20, 0.25);
   color: var(--text-primary);
   font-family: inherit;
   font-size: 1rem;
