@@ -551,17 +551,18 @@ section {
   width: 100%;
   padding: 0.8rem;
   background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
+  border: 2px solid rgba(220, 100, 20, 0.45);
   color: var(--text-primary);
   font-family: inherit;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--accent-gold);
+  border-color: #e8730a;
+  box-shadow: 0 0 0 3px rgba(232, 115, 10, 0.15);
 }
 
 .form-group textarea {
@@ -891,5 +892,138 @@ footer .social-links a:hover {
   .stream-section,
   .podcast-section {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
+   MARKETPLACE FILTER & TAGS
+   =========================== */
+
+.filter-bar {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.6rem;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Georgia', serif;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.filter-btn.active {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #ffffff;
+}
+
+.product-item {
+  /* wrapper used by filter JS */
+}
+
+.product-category-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+  padding: 0.2rem 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===========================
+   DECORATIVE SUB-THEME
+   =========================== */
+
+/* Subtle gold dot grid across the whole page */
+body {
+  background-image: radial-gradient(circle, rgba(201, 162, 39, 0.1) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+/* Large transparent opening-quote mark behind hero text */
+.hero::after {
+  content: '\201C';
+  position: absolute;
+  font-size: 38rem;
+  line-height: 1;
+  color: var(--accent-gold);
+  opacity: 0.045;
+  top: -4rem;
+  left: -1rem;
+  font-family: Georgia, serif;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+/* Book silhouette decoration — appears in the bottom-right of alternating sections */
+#featured::after,
+#featured-book::after,
+#shop::after,
+#about::after,
+#credentials::after {
+  content: '';
+  position: absolute;
+  width: 380px;
+  height: 300px;
+  right: -40px;
+  bottom: -30px;
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190"><g fill="none" stroke="%23c9a227" stroke-width="3.5"><rect x="12" y="12" width="95" height="166" rx="5"/><rect x="133" y="12" width="95" height="166" rx="5"/><path d="M107 12 Q120 18 120 178" stroke-width="5"/><path d="M133 12 Q120 18 120 178" stroke-width="5"/><line x1="27" y1="48" x2="92" y2="48" stroke-width="2"/><line x1="27" y1="66" x2="92" y2="66" stroke-width="2"/><line x1="27" y1="84" x2="92" y2="84" stroke-width="2"/><line x1="27" y1="102" x2="92" y2="102" stroke-width="2"/><line x1="27" y1="120" x2="92" y2="120" stroke-width="2"/><line x1="148" y1="48" x2="213" y2="48" stroke-width="2"/><line x1="148" y1="66" x2="213" y2="66" stroke-width="2"/><line x1="148" y1="84" x2="213" y2="84" stroke-width="2"/><line x1="148" y1="102" x2="213" y2="102" stroke-width="2"/><line x1="148" y1="120" x2="213" y2="120" stroke-width="2"/></g></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#featured,
+#featured-book,
+#shop,
+#about,
+#credentials {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Warm gold tint on alternating content sections */
+#featured,
+#values,
+#shop,
+#credentials,
+#resource-categories {
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.03) 0%, transparent 60%);
+}
+
+@media (max-width: 768px) {
+  .hero::after {
+    font-size: 18rem;
+    opacity: 0.03;
+  }
+
+  #featured::after,
+  #featured-book::after,
+  #shop::after,
+  #about::after,
+  #credentials::after {
+    width: 200px;
+    height: 160px;
+    right: -20px;
+    bottom: -20px;
   }
 }

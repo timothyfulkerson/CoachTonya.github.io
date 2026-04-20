@@ -24,20 +24,22 @@
   <section class="hero" style="min-height: 30vh;">
     <div class="hero-content">
       <h1>Marketplace</h1>
-      <p class="tagline">Books, merchandise, and resources.</p>
+      <p class="tagline">Books, apparel, and gear — all in one place.</p>
     </div>
   </section>
 
-  <section id="products" style="padding: 2rem;">
+  <!-- Featured Book -->
+  <section id="featured-book">
+    <div class="section-header">
+      <h2>Featured</h2>
+    </div>
     <div style="display: flex; flex-wrap: wrap; max-width: 900px; margin: 0 auto; align-items: stretch; gap: 0;">
-      <!-- Book Cover -->
       <div style="flex: 1; min-width: 280px; text-align: center;">
-        <img src="images/book-cover.jpg" alt="Unloved Book Cover" style="width: 100%; max-width: 350px; height: auto; border: 1px solid var(--border-gold); box-shadow: 0 8px 30px rgba(0,0,0,0.5);" />
+        <img src="images/book-cover.jpg" alt="Unloved Book Cover" style="width: 100%; max-width: 350px; height: auto; border: 1px solid var(--border-gold); box-shadow: 0 8px 30px rgba(0,0,0,0.2);" />
       </div>
-      
-      <!-- Book Details -->
       <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column;">
         <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); padding: 1.5rem; text-align: left; flex: 1;">
+          <span class="product-category-tag">Books</span>
           <h4 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.1rem;">About the Book</h4>
           <p id="book-summary-short" style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.75rem;">
             "UNLOVED" — A Blueprint for Healing the Child You Used to Be. This is the memoir and manifesto from Coach Tonya, a woman who cracked the code of generational trauma after surviving the "unloved life"—a cycle of homelessness, betrayal, and the crushing truth that she never felt loved by her parents. This book is a roadmap for the person who feels uncounted, unwanted, and ready to give up.
@@ -49,11 +51,10 @@
             <p><em>"My dad couldn't love me because you were my mom, and my mom couldn't love me because you were my dad."</em> This agonizing realization is the generational curse you carry.</p>
             <p>In this fierce, uncompromising book, Coach Tonya shows what real life looks like for the unloved and gives you the keys to building the life you were denied.</p>
             <p>You will learn: <strong>The Hardest Lesson</strong>, <strong>The 5 Minute Rule</strong>, and <strong>The Final Fight</strong>.</p>
-            <p>You are only five minutes away from changing your life.</p>
+            <p>Using the 5 Minute Rule, you can change your life.</p>
           </div>
-          <button onclick="toggleSummary()" id="summary-btn" style="background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.8rem;">Read More</button>
+          <button onclick="toggleSummary()" id="summary-btn" style="background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.8rem; font-family: inherit;">Read More</button>
         </div>
-        
         <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-top: none;">
           <p style="font-size: 2rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 0.75rem;">$15.99</p>
           <button class="buy-button" onclick="buyProduct('unloved-book', 1)" style="padding: 0.75rem 2rem; font-size: 1rem;">
@@ -63,6 +64,129 @@
       </div>
     </div>
   </section>
+
+  <!-- Shop All Products -->
+  <section id="shop">
+    <div class="section-header">
+      <h2>Shop</h2>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Products</button>
+      <button class="filter-btn" data-filter="books">Books</button>
+      <button class="filter-btn" data-filter="clothes">Clothes</button>
+      <button class="filter-btn" data-filter="uniforms">Uniforms</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid">
+
+      <!-- BOOKS -->
+      <div class="product-item" data-category="books">
+        <div class="product-card">
+          <div class="product-image" style="background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%); overflow: hidden; height: 220px;">
+            <img src="images/book-cover.jpg" alt="UNLOVED Book Cover" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Books</span>
+            <h4>UNLOVED</h4>
+            <p class="description">A Blueprint for Healing the Child You Used to Be.</p>
+            <p class="price">$15.99</p>
+            <button class="buy-button" onclick="buyProduct('unloved-book', 1)">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-item" data-category="books">
+        <div class="product-card" style="opacity: 0.65;">
+          <div class="product-image">
+            <span style="font-size: 3.5rem;">📚</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Books</span>
+            <h4>Coaching Guide</h4>
+            <p class="description">A comprehensive guide for coaches and mentors working with youth.</p>
+            <p class="price">Coming Soon</p>
+            <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">Coming Soon</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLOTHES -->
+      <div class="product-item" data-category="clothes">
+        <div class="product-card" style="opacity: 0.65;">
+          <div class="product-image">
+            <span style="font-size: 3.5rem;">👕</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Clothes</span>
+            <h4>Coach Tonya T-Shirt</h4>
+            <p class="description">Classic crew-neck tee with the Coach Tonya brand logo.</p>
+            <p class="price">Coming Soon</p>
+            <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">Coming Soon</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-item" data-category="clothes">
+        <div class="product-card" style="opacity: 0.65;">
+          <div class="product-image">
+            <span style="font-size: 3.5rem;">🧥</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Clothes</span>
+            <h4>Coach Tonya Hoodie</h4>
+            <p class="description">Premium pullover hoodie — represent the movement every day.</p>
+            <p class="price">Coming Soon</p>
+            <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">Coming Soon</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNIFORMS -->
+      <div class="product-item" data-category="uniforms">
+        <div class="product-card" style="opacity: 0.65;">
+          <div class="product-image">
+            <span style="font-size: 3.5rem;">🏅</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Uniforms</span>
+            <h4>Youth Program Uniform</h4>
+            <p class="description">Official uniform for participants in Coach Tonya's youth programs.</p>
+            <p class="price">Coming Soon</p>
+            <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">Coming Soon</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-item" data-category="uniforms">
+        <div class="product-card" style="opacity: 0.65;">
+          <div class="product-image">
+            <span style="font-size: 3.5rem;">🎽</span>
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Uniforms</span>
+            <h4>Coaching Staff Uniform</h4>
+            <p class="description">Official uniform for coaches and staff working with Coach Tonya's programs.</p>
+            <p class="price">Coming Soon</p>
+            <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">Coming Soon</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/tonya-duran-0827b951" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/coachtonyaduran/" target="_blank">Instagram</a>
+      <a href="https://www.zoominfo.com/p/Tonya-Duran/-967173672" target="_blank">ZoomInfo</a>
+      <a href="https://www.facebook.com/coachtonyaduran/" target="_blank">Facebook</a>
+    </div>
+    <p>&copy; 2026 Tonya Duran. All rights reserved.</p>
+  </footer>
 
   <script>
     function toggleSummary() {
@@ -79,89 +203,40 @@
         btn.textContent = 'Read More';
       }
     }
-  </script>
 
-  <section id="coming-soon">
-    <div class="section-header">
-      <h2>Coming Soon</h2>
-    </div>
-    <div class="product-grid">
-      <div class="product-card" style="opacity: 0.6;">
-        <div class="product-image" style="background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);">
-          <span style="font-size: 3rem; opacity: 0.3;">📚</span>
-        </div>
-        <div class="product-info">
-          <h4>Coaching Guide</h4>
-          <p class="description">
-            A comprehensive guide for coaches and mentors working with youth.
-          </p>
-          <p class="price">Coming Soon</p>
-          <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">
-            Coming Soon
-          </button>
-        </div>
-      </div>
-      <div class="product-card" style="opacity: 0.6;">
-        <div class="product-image" style="background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);">
-          <span style="font-size: 3rem; opacity: 0.3;">🎓</span>
-        </div>
-        <div class="product-info">
-          <h4>Youth Workshop Series</h4>
-          <p class="description">
-            Video series and materials for youth empowerment workshops.
-          </p>
-          <p class="price">Coming Soon</p>
-          <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">
-            Coming Soon
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(function(b) {
+          b.classList.remove('active');
+        });
+        this.classList.add('active');
+        var filter = this.getAttribute('data-filter');
+        document.querySelectorAll('.product-item').forEach(function(item) {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
 
-  <footer>
-    <div class="social-links">
-      <a href="https://www.linkedin.com/in/tonya-duran-0827b951" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/coachtonyaduran/" target="_blank">Instagram</a>
-      <a href="https://www.zoominfo.com/p/Tonya-Duran/-967173672" target="_blank">ZoomInfo</a>
-      <a href="https://www.facebook.com/coachtonyaduran/" target="_blank">Facebook</a>
-    </div>
-    <p>&copy; 2026 Tonya Duran. All rights reserved.</p>
-  </footer>
-
-  <script>
-    // Initialize Stripe with your publishable key
-    // Replace with your actual Stripe publishable key from https://dashboard.stripe.com/test/apikeys
     const stripe = Stripe('pk_test_placeholder');
 
     async function buyProduct(productId, quantity) {
       const button = event.target;
       button.textContent = 'Processing...';
       button.disabled = true;
-
       try {
         const response = await fetch('/create-checkout-session', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ productId, quantity }),
         });
-
-        if (!response.ok) {
-          throw new Error('Failed to create checkout session');
-        }
-
+        if (!response.ok) throw new Error('Failed to create checkout session');
         const session = await response.json();
-
-        // Redirect to Stripe Checkout
-        const result = await stripe.redirectToCheckout({
-          sessionId: session.id,
-        });
-
-        if (result.error) {
-          throw new Error(result.error.message);
-        }
+        const result = await stripe.redirectToCheckout({ sessionId: session.id });
+        if (result.error) throw new Error(result.error.message);
       } catch (error) {
         console.error('Error:', error);
         alert('There was an error processing your purchase. Please try again.');
