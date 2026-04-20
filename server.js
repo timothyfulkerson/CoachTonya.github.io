@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.static('public'));
+app.use(express.static('docs'));
 app.use(express.json());
 
 // Store for demo purposes - in production, use a database
@@ -22,31 +22,31 @@ const products = [
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/docs/index.html');
 });
 
 app.get('/about', (req, res) => {
-  res.sendFile(__dirname + '/public/about.html');
+  res.sendFile(__dirname + '/docs/about.html');
 });
 
 app.get('/achievements', (req, res) => {
-  res.sendFile(__dirname + '/public/achievements.html');
+  res.sendFile(__dirname + '/docs/achievements.html');
 });
 
 app.get('/marketplace', (req, res) => {
-  res.sendFile(__dirname + '/public/marketplace.html');
+  res.sendFile(__dirname + '/docs/marketplace.html');
 });
 
 app.get('/contact', (req, res) => {
-  res.sendFile(__dirname + '/public/contact.html');
+  res.sendFile(__dirname + '/docs/contact.html');
 });
 
 app.get('/resources', (req, res) => {
-  res.sendFile(__dirname + '/public/resources.html');
+  res.sendFile(__dirname + '/docs/resources.html');
 });
 
 app.get('/on-air', (req, res) => {
-  res.sendFile(__dirname + '/public/on-air.html');
+  res.sendFile(__dirname + '/docs/on-air.html');
 });
 
 // Stripe checkout session
