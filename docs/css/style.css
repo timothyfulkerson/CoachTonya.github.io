@@ -293,7 +293,7 @@ section {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  border: 1px solid rgba(232, 115, 10, 0.22);
+  border: 1px solid rgba(232, 115, 10, 0.5);
   color: var(--text-secondary);
   font-size: 0.85rem;
   transition: all 0.3s ease;
@@ -314,7 +314,7 @@ section {
 
 .achievement-card {
   background: var(--bg-secondary);
-  border: 1px solid rgba(232, 115, 10, 0.22);
+  border: 1px solid rgba(232, 115, 10, 0.5);
   padding: 2rem;
   transition: all 0.3s ease;
   position: relative;
@@ -377,7 +377,7 @@ section {
 
 .project-card {
   background: var(--bg-secondary);
-  border: 1px solid rgba(232, 115, 10, 0.22);
+  border: 1px solid rgba(232, 115, 10, 0.5);
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -428,7 +428,7 @@ section {
 
 .product-card {
   background: var(--bg-secondary);
-  border: 1px solid rgba(232, 115, 10, 0.22);
+  border: 1px solid rgba(232, 115, 10, 0.5);
   overflow: hidden;
   transition: all 0.3s ease;
 }
