@@ -935,16 +935,3 @@ footer .social-links a:hover {
   margin-bottom: 0.75rem;
 }
 
-@media (max-width: 768px) {
-
-  #featured::after,
-  #featured-book::after,
-  #shop::after,
-  #about::after,
-  #credentials::after {
-    width: 200px;
-    height: 160px;
-    right: -20px;
-    bottom: -20px;
-  }
-}
