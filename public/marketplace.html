@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace | Coach Tonya</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <nav>
+    <div class="logo">Coach Tonya</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/achievements.html">Achievements</a></li>
+      <li><a href="/marketplace.html" class="active">Marketplace</a></li>
+      <li><a href="/resources.html">Resources</a></li>
+      <li><a href="/on-air.html">On Air & Upcoming</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" style="min-height: 30vh;">
+    <div class="hero-content">
+      <h1>Marketplace</h1>
+      <p class="tagline">Books, merchandise, and resources.</p>
+    </div>
+  </section>
+
+  <section id="products" style="padding: 2rem;">
+    <div style="display: flex; flex-wrap: wrap; max-width: 900px; margin: 0 auto; align-items: stretch; gap: 0;">
+      <!-- Book Cover -->
+      <div style="flex: 1; min-width: 280px; text-align: center;">
+        <img src="/images/book-cover.jpg" alt="Unloved Book Cover" style="width: 100%; max-width: 350px; height: auto; border: 1px solid var(--border-gold); box-shadow: 0 8px 30px rgba(0,0,0,0.5);" />
+      </div>
+      
+      <!-- Book Details -->
+      <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column;">
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); padding: 1.5rem; text-align: left; flex: 1;">
+          <h4 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.1rem;">About the Book</h4>
+          <p id="book-summary-short" style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.75rem;">
+            "UNLOVED" — A Blueprint for Healing the Child You Used to Be. This is the memoir and manifesto from Coach Tonya, a woman who cracked the code of generational trauma after surviving the "unloved life"—a cycle of homelessness, betrayal, and the crushing truth that she never felt loved by her parents. This book is a roadmap for the person who feels uncounted, unwanted, and ready to give up.
+          </p>
+          <div id="book-summary-full" style="display: none; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+            <p><strong>"UNLOVED"</strong><br>A Blueprint for Healing the Child You Used to Be</p>
+            <p>This is the memoir and manifesto from Coach Tonya, a woman who cracked the code of generational trauma after surviving the "unloved life"—a cycle of homelessness, betrayal, and the crushing truth that she never felt loved by her parents.</p>
+            <p>This book is a roadmap for the person who feels uncounted, unwanted, and ready to give up. It is not a pity party; it is A Healing Blueprint for Pain That Was Never Understood.</p>
+            <p><em>"My dad couldn't love me because you were my mom, and my mom couldn't love me because you were my dad."</em> This agonizing realization is the generational curse you carry.</p>
+            <p>In this fierce, uncompromising book, Coach Tonya shows what real life looks like for the unloved and gives you the keys to building the life you were denied.</p>
+            <p>You will learn: <strong>The Hardest Lesson</strong>, <strong>The 5 Minute Rule</strong>, and <strong>The Final Fight</strong>.</p>
+            <p>You are only five minutes away from changing your life.</p>
+          </div>
+          <button onclick="toggleSummary()" id="summary-btn" style="background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.8rem;">Read More</button>
+        </div>
+        
+        <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-top: none;">
+          <p style="font-size: 2rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 0.75rem;">$15.99</p>
+          <button class="buy-button" onclick="buyProduct('unloved-book', 1)" style="padding: 0.75rem 2rem; font-size: 1rem;">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleSummary() {
+      var full = document.getElementById('book-summary-full');
+      var short = document.getElementById('book-summary-short');
+      var btn = document.getElementById('summary-btn');
+      if (full.style.display === 'none') {
+        full.style.display = 'block';
+        short.style.display = 'none';
+        btn.textContent = 'Show Less';
+      } else {
+        full.style.display = 'none';
+        short.style.display = 'block';
+        btn.textContent = 'Read More';
+      }
+    }
+  </script>
+
+  <section id="coming-soon">
+    <div class="section-header">
+      <h2>Coming Soon</h2>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" style="opacity: 0.6;">
+        <div class="product-image" style="background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);">
+          <span style="font-size: 3rem; opacity: 0.3;">📚</span>
+        </div>
+        <div class="product-info">
+          <h4>Coaching Guide</h4>
+          <p class="description">
+            A comprehensive guide for coaches and mentors working with youth.
+          </p>
+          <p class="price">Coming Soon</p>
+          <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">
+            Coming Soon
+          </button>
+        </div>
+      </div>
+      <div class="product-card" style="opacity: 0.6;">
+        <div class="product-image" style="background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);">
+          <span style="font-size: 3rem; opacity: 0.3;">🎓</span>
+        </div>
+        <div class="product-info">
+          <h4>Youth Workshop Series</h4>
+          <p class="description">
+            Video series and materials for youth empowerment workshops.
+          </p>
+          <p class="price">Coming Soon</p>
+          <button class="buy-button" disabled style="background: var(--text-muted); cursor: not-allowed;">
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/tonya-duran-0827b951" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/coachtonyaduran/" target="_blank">Instagram</a>
+      <a href="https://www.zoominfo.com/p/Tonya-Duran/-967173672" target="_blank">ZoomInfo</a>
+      <a href="https://www.facebook.com/coachtonyaduran/" target="_blank">Facebook</a>
+    </div>
+    <p>&copy; 2026 Tonya Duran. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Initialize Stripe with your publishable key
+    // Replace with your actual Stripe publishable key from https://dashboard.stripe.com/test/apikeys
+    const stripe = Stripe('pk_test_placeholder');
+
+    async function buyProduct(productId, quantity) {
+      const button = event.target;
+      button.textContent = 'Processing...';
+      button.disabled = true;
+
+      try {
+        const response = await fetch('/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productId, quantity }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create checkout session');
+        }
+
+        const session = await response.json();
+
+        // Redirect to Stripe Checkout
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+
+        if (result.error) {
+          throw new Error(result.error.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error processing your purchase. Please try again.');
+        button.textContent = 'Buy Now';
+        button.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
