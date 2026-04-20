@@ -149,22 +149,9 @@ nav {
   text-align: center;
   padding: 6rem 2rem;
   position: relative;
-  background: 
-    radial-gradient(ellipse at 50% 0%, rgba(201, 162, 39, 0.08) 0%, transparent 50%),
-    var(--bg-primary);
+  background: var(--bg-primary);
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-}
 
 .hero-content {
   max-width: 800px;
@@ -948,74 +935,7 @@ footer .social-links a:hover {
   margin-bottom: 0.75rem;
 }
 
-/* ===========================
-   DECORATIVE SUB-THEME
-   =========================== */
-
-/* Plain white background */
-body {
-  background-image: none;
-}
-
-/* Large transparent opening-quote mark behind hero text */
-.hero::after {
-  content: '\201C';
-  position: absolute;
-  font-size: 38rem;
-  line-height: 1;
-  color: var(--accent-gold);
-  opacity: 0.045;
-  top: -4rem;
-  left: -1rem;
-  font-family: Georgia, serif;
-  pointer-events: none;
-  z-index: 0;
-  user-select: none;
-}
-
-/* Book silhouette decoration — appears in the bottom-right of alternating sections */
-#featured::after,
-#featured-book::after,
-#shop::after,
-#about::after,
-#credentials::after {
-  content: '';
-  position: absolute;
-  width: 380px;
-  height: 300px;
-  right: -40px;
-  bottom: -30px;
-  opacity: 0.045;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 190"><g fill="none" stroke="%23c9a227" stroke-width="3.5"><rect x="12" y="12" width="95" height="166" rx="5"/><rect x="133" y="12" width="95" height="166" rx="5"/><path d="M107 12 Q120 18 120 178" stroke-width="5"/><path d="M133 12 Q120 18 120 178" stroke-width="5"/><line x1="27" y1="48" x2="92" y2="48" stroke-width="2"/><line x1="27" y1="66" x2="92" y2="66" stroke-width="2"/><line x1="27" y1="84" x2="92" y2="84" stroke-width="2"/><line x1="27" y1="102" x2="92" y2="102" stroke-width="2"/><line x1="27" y1="120" x2="92" y2="120" stroke-width="2"/><line x1="148" y1="48" x2="213" y2="48" stroke-width="2"/><line x1="148" y1="66" x2="213" y2="66" stroke-width="2"/><line x1="148" y1="84" x2="213" y2="84" stroke-width="2"/><line x1="148" y1="102" x2="213" y2="102" stroke-width="2"/><line x1="148" y1="120" x2="213" y2="120" stroke-width="2"/></g></svg>');
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-#featured,
-#featured-book,
-#shop,
-#about,
-#credentials {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Warm gold tint on alternating content sections */
-#featured,
-#values,
-#shop,
-#credentials,
-#resource-categories {
-  background: linear-gradient(135deg, rgba(201, 162, 39, 0.03) 0%, transparent 60%);
-}
-
 @media (max-width: 768px) {
-  .hero::after {
-    font-size: 18rem;
-    opacity: 0.03;
-  }
 
   #featured::after,
   #featured-book::after,
