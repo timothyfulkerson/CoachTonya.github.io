@@ -293,14 +293,15 @@ section {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(232, 115, 10, 0.22);
   color: var(--text-secondary);
   font-size: 0.85rem;
   transition: all 0.3s ease;
 }
 
 .social-link:hover {
-  border-color: var(--accent-gold);
+  border-color: rgba(232, 115, 10, 0.72);
+  box-shadow: 0 0 0 1px rgba(232, 115, 10, 0.35);
   color: var(--accent-gold);
 }
 
@@ -313,7 +314,7 @@ section {
 
 .achievement-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(232, 115, 10, 0.22);
   padding: 2rem;
   transition: all 0.3s ease;
   position: relative;
@@ -327,13 +328,14 @@ section {
   left: 0;
   width: 3px;
   height: 100%;
-  background: var(--accent-gold);
+  background: rgba(232, 115, 10, 0.75);
   transform: scaleY(0);
   transition: transform 0.3s ease;
 }
 
 .achievement-card:hover {
-  border-color: var(--border-gold);
+  border-color: rgba(232, 115, 10, 0.72);
+  box-shadow: 0 0 0 1px rgba(232, 115, 10, 0.35), 0 6px 20px rgba(232, 115, 10, 0.08);
   transform: translateY(-5px);
 }
 
@@ -375,13 +377,14 @@ section {
 
 .project-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(232, 115, 10, 0.22);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .project-card:hover {
-  border-color: var(--border-gold);
+  border-color: rgba(232, 115, 10, 0.72);
+  box-shadow: 0 0 0 1px rgba(232, 115, 10, 0.35), 0 6px 20px rgba(232, 115, 10, 0.08);
 }
 
 .project-content {
@@ -425,13 +428,14 @@ section {
 
 .product-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(232, 115, 10, 0.22);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .product-card:hover {
-  border-color: var(--border-gold);
+  border-color: rgba(232, 115, 10, 0.72);
+  box-shadow: 0 0 0 1px rgba(232, 115, 10, 0.35), 0 6px 20px rgba(232, 115, 10, 0.08);
   transform: translateY(-5px);
 }
 
