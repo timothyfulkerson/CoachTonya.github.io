@@ -661,11 +661,11 @@ footer .social-links a:hover {
   h1 {
     font-size: 2.5rem;
   }
-  
+
   .hero h1 {
     font-size: 3rem;
   }
-  
+
   nav {
     padding: 1rem 1.5rem;
     flex-wrap: wrap;
@@ -681,7 +681,13 @@ footer .social-links a:hover {
   .nav-links a {
     font-size: 0.75rem;
   }
-  
+
+  /* Push hero content below the fixed nav, which wraps to ~3 rows on mobile */
+  .hero {
+    padding-top: 10rem;
+    justify-content: flex-start;
+  }
+
   section {
     padding: 4rem 1.5rem;
   }
