@@ -380,11 +380,29 @@ section {
   border: 1px solid rgba(232, 115, 10, 0.5);
   overflow: hidden;
   transition: all 0.3s ease;
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: rgba(232, 115, 10, 0.75);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
 }
 
 .project-card:hover {
   border-color: rgba(232, 115, 10, 0.72);
   box-shadow: 0 0 0 1px rgba(232, 115, 10, 0.35), 0 6px 20px rgba(232, 115, 10, 0.08);
+  transform: translateY(-5px);
+}
+
+.project-card:hover::before {
+  transform: scaleY(1);
 }
 
 .project-content {
@@ -755,24 +773,192 @@ footer .social-links a:hover {
   margin: 0 auto;
 }
 
-.calendar-placeholder {
+/* Calendar Widget */
+.calendar-widget {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  padding: 3rem;
-  text-align: center;
+  border: 1px solid rgba(232, 115, 10, 0.5);
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.75rem;
 }
 
-.calendar-icon {
-  font-size: 3rem;
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
 }
 
-.no-events-message {
-  padding: 2rem;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
-  max-width: 500px;
-  margin: 2rem auto 0;
+.cal-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+  margin: 0;
+  font-family: 'Georgia', serif;
+}
+
+.cal-nav {
+  background: transparent;
+  border: 1px solid rgba(232, 115, 10, 0.4);
+  color: var(--accent-gold);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cal-nav:hover {
+  border-color: rgba(232, 115, 10, 0.8);
+  background: rgba(232, 115, 10, 0.08);
+  box-shadow: 0 0 0 1px rgba(232, 115, 10, 0.25);
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.cal-weekdays span {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0;
+}
+
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  cursor: default;
+  position: relative;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.cal-day.other-month {
+  color: var(--text-muted);
+  opacity: 0.35;
+}
+
+.cal-day.today {
+  background: rgba(232, 115, 10, 0.12);
+  border-color: rgba(232, 115, 10, 0.6);
+  color: #e8730a;
+  font-weight: bold;
+}
+
+.cal-day.has-event::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  width: 5px;
+  height: 5px;
+  background: rgba(232, 115, 10, 0.85);
+  border-radius: 50%;
+}
+
+.cal-day.has-event {
+  cursor: pointer;
+}
+
+.cal-day.has-event:hover {
+  background: rgba(232, 115, 10, 0.08);
+  border-color: rgba(232, 115, 10, 0.4);
+}
+
+.cal-events-list {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.25rem;
+}
+
+.cal-events-list h4 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.cal-event-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cal-event-item:last-child {
+  border-bottom: none;
+}
+
+.cal-event-date {
+  min-width: 46px;
+  text-align: center;
+  background: rgba(232, 115, 10, 0.08);
+  border: 1px solid rgba(232, 115, 10, 0.3);
+  padding: 0.35rem 0.4rem;
+  flex-shrink: 0;
+}
+
+.cal-event-date .ev-day {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #e8730a;
+  line-height: 1;
+}
+
+.cal-event-date .ev-month {
+  display: block;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.cal-event-info h5 {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.cal-event-info .ev-time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.cal-no-events {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  padding: 0.75rem 0 0;
+  font-style: italic;
+}
+
+.cal-book-cta {
+  text-align: center;
+  margin-top: 1.75rem;
 }
 
 .stream-section {
