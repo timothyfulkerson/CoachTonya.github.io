@@ -94,11 +94,10 @@ nav {
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-family: 'Georgia', serif;
-  color: var(--text-primary);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -1253,23 +1252,18 @@ footer .social-links a:hover {
   margin: 0;
 }
 
-/* ── Nav Logo Image ───────────────────────────────────────────────────── */
-.logo a,
-a.logo-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
 .nav-logo-img {
-  height: 48px;
+  height: 36px;
   width: auto;
   display: block;
+  max-width: 160px;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
   .nav-logo-img {
-    height: 38px;
+    height: 28px;
+    max-width: 120px;
   }
 
   .history-timeline::before {
