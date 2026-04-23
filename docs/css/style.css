@@ -1253,7 +1253,7 @@ footer .social-links a:hover {
 }
 
 .nav-logo-img {
-  height: 160px;
+  height: 128px;
   width: auto;
   display: block;
   max-width: 600px;
@@ -1262,7 +1262,7 @@ footer .social-links a:hover {
 
 @media (max-width: 768px) {
   .nav-logo-img {
-    height: 112px;
+    height: 80px;
     max-width: 400px;
   }
 
