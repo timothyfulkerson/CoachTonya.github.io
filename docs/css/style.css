@@ -1184,3 +1184,96 @@ footer .social-links a:hover {
   margin-bottom: 0.75rem;
 }
 
+/* ── History Timeline ─────────────────────────────────────────────────── */
+.history-timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+  position: relative;
+}
+
+.history-timeline::before {
+  content: '';
+  position: absolute;
+  left: 2.75rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-gold), transparent);
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.timeline-marker {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  border: 3px solid var(--bg-primary);
+  margin-top: 0.4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem 1.5rem;
+  flex: 1;
+}
+
+.timeline-year {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+  padding: 0.2rem 0.65rem;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-content h4 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-family: 'Georgia', serif;
+  font-size: 1.05rem;
+}
+
+.timeline-content p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Nav Logo Image ───────────────────────────────────────────────────── */
+.logo a,
+a.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo-img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .nav-logo-img {
+    height: 38px;
+  }
+
+  .history-timeline::before {
+    left: 1.5rem;
+  }
+}
+
