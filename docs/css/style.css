@@ -87,7 +87,7 @@ nav {
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-subtle);
-  padding: 1.5rem 3rem;
+  padding: 0.5rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -171,7 +171,7 @@ nav {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 6rem 2rem;
+  padding: 9rem 2rem 6rem;
   position: relative;
   background: var(--bg-primary);
 }
@@ -691,7 +691,7 @@ footer .social-links a:hover {
   }
 
   nav {
-    padding: 1rem 1.5rem;
+    padding: 0.4rem 1.5rem;
   }
 
   /* Show hamburger, hide it expanding */
@@ -724,9 +724,8 @@ footer .social-links a:hover {
     font-size: 0.85rem;
   }
 
-  /* Nav is now a fixed single row (~65px), so 5rem padding clears it comfortably */
   .hero {
-    padding-top: 6rem;
+    padding-top: 5rem;
     justify-content: center;
   }
 
@@ -1253,17 +1252,17 @@ footer .social-links a:hover {
 }
 
 .nav-logo-img {
-  height: 128px;
+  height: 72px;
   width: auto;
   display: block;
-  max-width: 600px;
+  max-width: 500px;
   object-fit: contain;
 }
 
 @media (max-width: 768px) {
   .nav-logo-img {
-    height: 80px;
-    max-width: 400px;
+    height: 52px;
+    max-width: 280px;
   }
 
   .history-timeline::before {
