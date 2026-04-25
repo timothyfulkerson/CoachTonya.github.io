@@ -79,10 +79,8 @@ a:hover {
 
 /* Navigation */
 nav {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 1000;
   background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(8px);
@@ -802,6 +800,18 @@ footer .social-links a:hover {
 .status-icon {
   font-size: 3rem;
   margin-bottom: 1.5rem;
+}
+
+.drive-folder-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.drive-folder-link:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .status-note {
