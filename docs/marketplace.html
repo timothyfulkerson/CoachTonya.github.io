@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Marketplace | Coach Tonya</title>
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
@@ -289,6 +291,20 @@
           }
         });
       });
+    });
+
+    // Show More / Show Less for long product descriptions
+    document.querySelectorAll('.product-info .description').forEach(function (desc) {
+      if (desc.scrollHeight > desc.clientHeight + 2) {
+        var btn = document.createElement('button');
+        btn.className = 'desc-toggle-btn';
+        btn.textContent = 'Show More';
+        btn.addEventListener('click', function () {
+          var expanded = desc.classList.toggle('expanded');
+          btn.textContent = expanded ? 'Show Less' : 'Show More';
+        });
+        desc.insertAdjacentElement('afterend', btn);
+      }
     });
 
     const stripe = Stripe('pk_test_placeholder');
