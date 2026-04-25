@@ -805,7 +805,7 @@ footer .social-links a:hover {
 .drive-folder-link {
   display: inline-block;
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.25rem 1rem;
   border: 1px solid transparent;
   border-radius: 4px;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
