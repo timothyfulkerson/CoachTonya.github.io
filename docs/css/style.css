@@ -1151,6 +1151,11 @@ footer .social-links a:hover {
   margin-top: 1.75rem;
 }
 
+.cal-book-cta .cta-button {
+  padding: 1.1rem 3.5rem;
+  font-size: 1rem;
+}
+
 .stream-section {
   display: grid;
   grid-template-columns: 1fr 1fr;

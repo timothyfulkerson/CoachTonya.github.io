@@ -189,7 +189,7 @@
     }).sort(function (a, b) { return a.date.localeCompare(b.date); });
 
     if (upcoming.length === 0) {
-      evListEl.innerHTML = '<p class="cal-no-events">No upcoming events scheduled.</p>';
+      evListEl.innerHTML = '';
     } else {
       var html = '<h4>Upcoming Events</h4>';
       upcoming.forEach(function (ev) {
