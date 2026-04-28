@@ -7,7 +7,6 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Marketplace | Coach Tonya</title>
   <link rel="stylesheet" href="css/style.css?v=4">
-  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
   <nav>
@@ -307,28 +306,25 @@
       }
     });
 
-    const stripe = Stripe('pk_test_placeholder');
+    /*
+      SETUP REQUIRED — Stripe Payment Links (no backend needed):
+      1. Log in to Stripe Dashboard (dashboard.stripe.com)
+      2. Go to Payment Links → + New link
+      3. Add "UNLOVED Book" as a product at $15.99 and create the link
+      4. Copy the link URL (looks like: https://buy.stripe.com/xxxx)
+      5. Replace 'YOUR_STRIPE_PAYMENT_LINK' below with that URL
+    */
+    var PAYMENT_LINKS = {
+      'unloved-book': 'YOUR_STRIPE_PAYMENT_LINK'
+    };
 
-    async function buyProduct(productId, quantity) {
-      const button = event.target;
-      button.textContent = 'Processing...';
-      button.disabled = true;
-      try {
-        const response = await fetch('/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ productId, quantity }),
-        });
-        if (!response.ok) throw new Error('Failed to create checkout session');
-        const session = await response.json();
-        const result = await stripe.redirectToCheckout({ sessionId: session.id });
-        if (result.error) throw new Error(result.error.message);
-      } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error processing your purchase. Please try again.');
-        button.textContent = 'Buy Now';
-        button.disabled = false;
+    function buyProduct(productId) {
+      var link = PAYMENT_LINKS[productId];
+      if (!link || link === 'YOUR_STRIPE_PAYMENT_LINK') {
+        alert('Online checkout is coming soon. To purchase now, email Tonya@CoachTonya.io directly.');
+        return;
       }
+      window.location.href = link;
     }
   </script>
 </body>

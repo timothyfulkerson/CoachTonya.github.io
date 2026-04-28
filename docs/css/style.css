@@ -1156,6 +1156,60 @@ footer .social-links a:hover {
   font-size: 1rem;
 }
 
+/* CAPTCHA row */
+.captcha-row {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.captcha-box {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  border: 1px solid var(--border-subtle);
+  padding: 0.65rem 1rem;
+  background: var(--bg-secondary);
+  flex: 1;
+  min-width: 210px;
+}
+
+.captcha-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.captcha-question {
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: bold;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+.captcha-input {
+  width: 58px;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border-subtle);
+  border-bottom: 2px solid var(--accent-gold);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.captcha-input:focus {
+  border-bottom-color: var(--accent-gold-light);
+}
+
 .stream-section {
   display: grid;
   grid-template-columns: 1fr 1fr;

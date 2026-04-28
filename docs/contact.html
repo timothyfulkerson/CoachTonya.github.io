@@ -83,7 +83,14 @@
           <textarea id="message" name="message" rows="6" required></textarea>
           <div class="word-count-display" id="wordCount">0 / 500 words</div>
         </div>
-        <button type="submit" class="submit-button">Send Message</button>
+        <div class="captcha-row">
+          <div class="captcha-box">
+            <span class="captcha-label">Verification</span>
+            <span class="captcha-question" id="captchaQ"></span>
+            <input type="text" class="captcha-input" id="captchaA" placeholder="?" maxlength="3" autocomplete="off">
+          </div>
+          <button type="submit" class="submit-button">Send Message</button>
+        </div>
       </form>
     </div>
   </section>
@@ -142,7 +149,14 @@
           <textarea id="b-message" name="message" rows="6" required></textarea>
           <div class="word-count-display" id="bookingWordCount">0 / 500 words</div>
         </div>
-        <button type="submit" class="submit-button">Request Booking</button>
+        <div class="captcha-row">
+          <div class="captcha-box">
+            <span class="captcha-label">Verification</span>
+            <span class="captcha-question" id="bCaptchaQ"></span>
+            <input type="text" class="captcha-input" id="bCaptchaA" placeholder="?" maxlength="3" autocomplete="off">
+          </div>
+          <button type="submit" class="submit-button">Request Booking</button>
+        </div>
       </form>
     </div>
   </section>
@@ -185,6 +199,16 @@
       return str.replace(/[<>]/g, '').trim();
     }
 
+    var captchaAns = 0;
+    function newCaptcha() {
+      var a = Math.floor(Math.random() * 9) + 1;
+      var b = Math.floor(Math.random() * 9) + 1;
+      captchaAns = a + b;
+      document.getElementById('captchaQ').textContent = a + ' + ' + b + ' = ?';
+      document.getElementById('captchaA').value = '';
+    }
+    newCaptcha();
+
     var messageEl  = document.getElementById('message');
     var wordCountEl = document.getElementById('wordCount');
 
@@ -215,6 +239,13 @@
 
       // Honeypot check
       if (document.querySelector('input[name="_gotcha"]').value !== '') return;
+
+      // Captcha check
+      if (parseInt(document.getElementById('captchaA').value, 10) !== captchaAns) {
+        alert('Verification failed — please answer the math question correctly.');
+        newCaptcha();
+        return;
+      }
 
       // Rate limiting
       var now = Date.now();
@@ -260,6 +291,7 @@
           sessionCount++;
           alert('Thank you! Your message has been sent. Tonya will be in touch soon.');
           this.reset();
+          newCaptcha();
           messageEl.style.height = '150px';
           wordCountEl.textContent = '0 / 500 words';
           wordCountEl.classList.remove('over-limit');
@@ -305,6 +337,16 @@
       return str.replace(/[<>]/g, '').trim();
     }
 
+    var bCaptchaAns = 0;
+    function newBookingCaptcha() {
+      var a = Math.floor(Math.random() * 9) + 1;
+      var b = Math.floor(Math.random() * 9) + 1;
+      bCaptchaAns = a + b;
+      document.getElementById('bCaptchaQ').textContent = a + ' + ' + b + ' = ?';
+      document.getElementById('bCaptchaA').value = '';
+    }
+    newBookingCaptcha();
+
     var messageEl  = document.getElementById('b-message');
     var wordCountEl = document.getElementById('bookingWordCount');
 
@@ -332,6 +374,13 @@
       e.preventDefault();
 
       if (document.querySelector('#bookingForm input[name="_gotcha"]').value !== '') return;
+
+      // Captcha check
+      if (parseInt(document.getElementById('bCaptchaA').value, 10) !== bCaptchaAns) {
+        alert('Verification failed — please answer the math question correctly.');
+        newBookingCaptcha();
+        return;
+      }
 
       var now = Date.now();
       if (now - lastSubmit < RATE_LIMIT_MS) {
@@ -385,6 +434,7 @@
           sessionCount++;
           alert('Thank you! Your booking request has been sent. Tonya will be in touch soon.');
           this.reset();
+          newBookingCaptcha();
           messageEl.style.height = '150px';
           wordCountEl.textContent = '0 / 500 words';
           wordCountEl.classList.remove('over-limit');
