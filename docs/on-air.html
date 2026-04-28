@@ -41,23 +41,17 @@
       <h2>Upcoming Events</h2>
     </div>
     <div class="calendar-container">
-      <div class="calendar-widget" style="padding: 0; overflow: hidden;">
-        <!--
-          SETUP REQUIRED — Google Calendar embed:
-          1. Open Google Calendar → click the three dots next to your calendar → Settings and sharing
-          2. Under "Access permissions" check "Make available to public"
-          3. Scroll to "Integrate calendar" and copy the Calendar ID
-          4. Replace YOUR_CALENDAR_ID below with that ID (e.g. abc123@group.calendar.google.com)
-        -->
-        <div style="height: 480px; overflow: hidden;">
-          <iframe
-            src="https://calendar.google.com/calendar/embed?src=coachtonya5%40gmail.com&ctz=America%2FNew_York&bgcolor=%23f7f7f7&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=MONTH"
-            style="border: 0; width: 100%; height: 530px; display: block;"
-            frameborder="0"
-            scrolling="no"
-            title="Coach Tonya's Calendar"
-          ></iframe>
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav" id="cal-prev">&#8249;</button>
+          <h3 class="cal-title" id="cal-title"></h3>
+          <button class="cal-nav" id="cal-next">&#8250;</button>
         </div>
+        <div class="cal-weekdays">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="cal-days" id="cal-days"></div>
+        <div class="cal-events-list" id="cal-events-list"></div>
         <div class="cal-book-cta">
           <a href="contact.html#booking" class="cta-button">Book Coach Tonya</a>
         </div>
@@ -171,6 +165,133 @@
       e.preventDefault();
       alert('The podcast link is coming soon. Check back for updates!');
     });
+  </script>
+
+  <script>
+  (function () {
+    // ── ADD EVENTS HERE ─────────────────────────────────────────────────────
+    // Format: { date: 'YYYY-MM-DD', title: 'Full Event Name',
+    //           startTime: '2:00 PM', endTime: '4:00 PM', location: 'Venue, City' }
+    const EVENTS = [
+      // { date: '2026-05-15', title: 'Community Workshop', startTime: '2:00 PM', endTime: '4:00 PM', location: 'Toledo, OH' }
+    ];
+    // ────────────────────────────────────────────────────────────────────────
+
+    const MONTH_NAMES  = ['January','February','March','April','May','June',
+                          'July','August','September','October','November','December'];
+    const SHORT_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun',
+                          'Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    const today = new Date();
+    let viewYear  = today.getFullYear();
+    let viewMonth = today.getMonth();
+
+    function eventMapForMonth(year, month) {
+      const map = {};
+      EVENTS.forEach(function (ev) {
+        const d = new Date(ev.date + 'T00:00:00');
+        if (d.getFullYear() === year && d.getMonth() === month) {
+          const day = d.getDate();
+          if (!map[day]) map[day] = [];
+          map[day].push(ev);
+        }
+      });
+      return map;
+    }
+
+    function buildTooltip(events) {
+      var html = '<div class="cal-tooltip">';
+      events.forEach(function (ev) {
+        var timeStr = ev.startTime + (ev.endTime ? ' – ' + ev.endTime : '');
+        html += '<div class="cal-tooltip-event">'
+          + '<div class="cal-tooltip-event-title">' + ev.title + '</div>'
+          + '<span class="cal-tooltip-event-time">' + timeStr + '</span>'
+          + (ev.location ? '<span class="cal-tooltip-event-loc">' + ev.location + '</span>' : '')
+          + '</div>';
+      });
+      html += '</div>';
+      return html;
+    }
+
+    function renderCalendar() {
+      const titleEl  = document.getElementById('cal-title');
+      const daysEl   = document.getElementById('cal-days');
+      const evListEl = document.getElementById('cal-events-list');
+
+      titleEl.textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
+
+      const firstDayOfWeek = new Date(viewYear, viewMonth, 1).getDay();
+      const daysInMonth    = new Date(viewYear, viewMonth + 1, 0).getDate();
+      const daysInPrev     = new Date(viewYear, viewMonth, 0).getDate();
+      const eventMap       = eventMapForMonth(viewYear, viewMonth);
+
+      var html = '';
+
+      for (var i = firstDayOfWeek - 1; i >= 0; i--) {
+        html += '<div class="cal-day other-month">' + (daysInPrev - i) + '</div>';
+      }
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var isToday  = (viewYear  === today.getFullYear() &&
+                        viewMonth === today.getMonth()    &&
+                        d         === today.getDate());
+        var hasEvent = !!eventMap[d];
+        var cls      = 'cal-day' + (isToday ? ' today' : '') + (hasEvent ? ' has-event' : '');
+        var tooltip  = hasEvent ? buildTooltip(eventMap[d]) : '';
+        html += '<div class="' + cls + '">' + d + tooltip + '</div>';
+      }
+
+      var totalCells = firstDayOfWeek + daysInMonth;
+      var remainder  = totalCells % 7;
+      if (remainder !== 0) {
+        for (var n = 1; n <= 7 - remainder; n++) {
+          html += '<div class="cal-day other-month">' + n + '</div>';
+        }
+      }
+
+      daysEl.innerHTML = html;
+
+      var monthEvents = EVENTS.filter(function (ev) {
+        var d = new Date(ev.date + 'T00:00:00');
+        return d.getFullYear() === viewYear && d.getMonth() === viewMonth;
+      }).sort(function (a, b) { return a.date.localeCompare(b.date); });
+
+      if (monthEvents.length === 0) {
+        evListEl.innerHTML = '<p class="cal-no-events">No events scheduled this month.</p>';
+      } else {
+        var evHtml = '<h4>Events This Month</h4>';
+        monthEvents.forEach(function (ev) {
+          var evDate  = new Date(ev.date + 'T00:00:00');
+          var timeStr = ev.startTime + (ev.endTime ? ' – ' + ev.endTime : '');
+          evHtml += '<div class="cal-event-item">'
+            + '<div class="cal-event-date">'
+            + '<span class="ev-day">'   + evDate.getDate() + '</span>'
+            + '<span class="ev-month">' + SHORT_MONTHS[evDate.getMonth()] + '</span>'
+            + '</div>'
+            + '<div class="cal-event-info">'
+            + '<h5>' + ev.title + '</h5>'
+            + '<span class="ev-time">' + timeStr + (ev.location ? ' &middot; ' + ev.location : '') + '</span>'
+            + '</div>'
+            + '</div>';
+        });
+        evListEl.innerHTML = evHtml;
+      }
+    }
+
+    document.getElementById('cal-prev').addEventListener('click', function () {
+      viewMonth--;
+      if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+      renderCalendar();
+    });
+
+    document.getElementById('cal-next').addEventListener('click', function () {
+      viewMonth++;
+      if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+      renderCalendar();
+    });
+
+    renderCalendar();
+  })();
   </script>
 
 </body>
