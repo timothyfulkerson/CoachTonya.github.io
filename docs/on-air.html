@@ -41,17 +41,17 @@
       <h2>Upcoming Events</h2>
     </div>
     <div class="calendar-container">
-      <div class="calendar-widget">
-        <div class="cal-header">
-          <button class="cal-nav" id="cal-prev">&#8249;</button>
-          <h3 class="cal-title" id="cal-title"></h3>
-          <button class="cal-nav" id="cal-next">&#8250;</button>
+      <div class="calendar-widget" style="padding: 0; overflow: hidden;">
+        <div style="height: 480px; overflow: hidden;">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=coachtonya5%40gmail.com&ctz=America%2FNew_York&bgcolor=%23f7f7f7&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=MONTH"
+            style="border: 0; width: 100%; height: 530px; display: block;"
+            frameborder="0"
+            scrolling="no"
+            title="Coach Tonya's Calendar"
+          ></iframe>
         </div>
-        <div class="cal-weekdays">
-          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-        </div>
-        <div class="cal-days" id="cal-days"></div>
-        <div class="cal-events-list" id="cal-events-list"></div>
+        <div class="cal-events-list" id="cal-events-list" style="padding: 1.25rem 1.5rem 0;"></div>
         <div class="cal-book-cta">
           <a href="contact.html#booking" class="cta-button">Book Coach Tonya</a>
         </div>
@@ -170,123 +170,44 @@
   <script>
   (function () {
     // ── ADD EVENTS HERE ─────────────────────────────────────────────────────
-    // Each entry needs: date, title, startTime, endTime, and location.
-    // Remove the sample comment and add real events in the same format.
-    const EVENTS = [
-      // { date: '2026-05-28', title: 'Test Event Name', startTime: '7:30 PM', endTime: '9:00 PM', location: 'Toledo, OH' }
+    // These populate the details list below the calendar.
+    // Format: { date: 'YYYY-MM-DD', title: 'Full Event Name',
+    //           startTime: '7:30 PM', endTime: '9:00 PM', location: 'Venue, City' }
+    var EVENTS = [
+      // { date: '2026-05-28', title: 'Test Event', startTime: '7:30 PM', endTime: '9:00 PM', location: 'Toledo, OH' }
     ];
     // ────────────────────────────────────────────────────────────────────────
 
-    const MONTH_NAMES  = ['January','February','March','April','May','June',
-                          'July','August','September','October','November','December'];
-    const SHORT_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun',
-                          'Jul','Aug','Sep','Oct','Nov','Dec'];
+    var SHORT_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun',
+                        'Jul','Aug','Sep','Oct','Nov','Dec'];
 
-    const today = new Date();
-    let viewYear  = today.getFullYear();
-    let viewMonth = today.getMonth();
+    var today      = new Date();
+    var evListEl   = document.getElementById('cal-events-list');
 
-    function eventMapForMonth(year, month) {
-      var map = {};
-      EVENTS.forEach(function (ev) {
+    var upcoming = EVENTS.filter(function (ev) {
+      return new Date(ev.date + 'T00:00:00') >= new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    }).sort(function (a, b) { return a.date.localeCompare(b.date); });
+
+    if (upcoming.length === 0) {
+      evListEl.innerHTML = '<p class="cal-no-events">No upcoming events scheduled.</p>';
+    } else {
+      var html = '<h4>Upcoming Events</h4>';
+      upcoming.forEach(function (ev) {
         var d = new Date(ev.date + 'T00:00:00');
-        if (d.getFullYear() === year && d.getMonth() === month) {
-          var day = d.getDate();
-          if (!map[day]) map[day] = [];
-          map[day].push(ev);
-        }
-      });
-      return map;
-    }
-
-    function buildTooltip(events) {
-      var html = '<div class="cal-tooltip">';
-      events.forEach(function (ev) {
-        html += '<div class="cal-tooltip-event">'
-          + '<div class="cal-tooltip-title">' + ev.title + '</div>'
-          + '<div class="cal-tooltip-time">' + ev.startTime + ' – ' + ev.endTime + '</div>'
-          + '<div class="cal-tooltip-loc">' + ev.location + '</div>'
+        html += '<div class="cal-event-item">'
+          + '<div class="cal-event-date">'
+          + '<span class="ev-day">'   + d.getDate() + '</span>'
+          + '<span class="ev-month">' + SHORT_MONTHS[d.getMonth()] + '</span>'
+          + '</div>'
+          + '<div class="cal-event-info">'
+          + '<h5>' + ev.title + '</h5>'
+          + '<span class="ev-time">' + ev.startTime + ' – ' + ev.endTime
+          + ' &middot; ' + ev.location + '</span>'
+          + '</div>'
           + '</div>';
       });
-      html += '</div>';
-      return html;
+      evListEl.innerHTML = html;
     }
-
-    function renderCalendar() {
-      var titleEl  = document.getElementById('cal-title');
-      var daysEl   = document.getElementById('cal-days');
-      var evListEl = document.getElementById('cal-events-list');
-
-      titleEl.textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
-
-      var firstDay    = new Date(viewYear, viewMonth, 1).getDay();
-      var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-      var daysInPrev  = new Date(viewYear, viewMonth, 0).getDate();
-      var eventMap    = eventMapForMonth(viewYear, viewMonth);
-
-      var html = '';
-
-      for (var i = firstDay - 1; i >= 0; i--) {
-        html += '<div class="cal-day other-month">' + (daysInPrev - i) + '</div>';
-      }
-
-      for (var d = 1; d <= daysInMonth; d++) {
-        var isToday  = viewYear === today.getFullYear() &&
-                       viewMonth === today.getMonth() &&
-                       d === today.getDate();
-        var hasEvent = !!eventMap[d];
-        var cls      = 'cal-day' + (isToday ? ' today' : '') + (hasEvent ? ' has-event' : '');
-        html += '<div class="' + cls + '">' + d + (hasEvent ? buildTooltip(eventMap[d]) : '') + '</div>';
-      }
-
-      var total     = firstDay + daysInMonth;
-      var remainder = total % 7;
-      if (remainder !== 0) {
-        for (var n = 1; n <= 7 - remainder; n++) {
-          html += '<div class="cal-day other-month">' + n + '</div>';
-        }
-      }
-
-      daysEl.innerHTML = html;
-
-      var monthEvents = EVENTS.filter(function (ev) {
-        var d = new Date(ev.date + 'T00:00:00');
-        return d.getFullYear() === viewYear && d.getMonth() === viewMonth;
-      }).sort(function (a, b) { return a.date.localeCompare(b.date); });
-
-      if (monthEvents.length === 0) {
-        evListEl.innerHTML = '<p class="cal-no-events">No events scheduled this month.</p>';
-      } else {
-        var evHtml = '<h4>Events This Month</h4>';
-        monthEvents.forEach(function (ev) {
-          var evDate = new Date(ev.date + 'T00:00:00');
-          evHtml += '<div class="cal-event-item">'
-            + '<div class="cal-event-date">'
-            + '<span class="ev-day">'   + evDate.getDate() + '</span>'
-            + '<span class="ev-month">' + SHORT_MONTHS[evDate.getMonth()] + '</span>'
-            + '</div>'
-            + '<div class="cal-event-info">'
-            + '<h5>' + ev.title + '</h5>'
-            + '<span class="ev-time">' + ev.startTime + ' – ' + ev.endTime
-            + ' &middot; ' + ev.location + '</span>'
-            + '</div>'
-            + '</div>';
-        });
-        evListEl.innerHTML = evHtml;
-      }
-    }
-
-    document.getElementById('cal-prev').addEventListener('click', function () {
-      if (--viewMonth < 0) { viewMonth = 11; viewYear--; }
-      renderCalendar();
-    });
-
-    document.getElementById('cal-next').addEventListener('click', function () {
-      if (++viewMonth > 11) { viewMonth = 0; viewYear++; }
-      renderCalendar();
-    });
-
-    renderCalendar();
   })();
   </script>
 
