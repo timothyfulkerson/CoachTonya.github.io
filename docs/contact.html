@@ -258,11 +258,8 @@
         if (res.ok) {
           lastSubmit = Date.now();
           sessionCount++;
-          alert('Thank you! Your message has been sent. Tonya will be in touch soon.');
           this.reset();
-          messageEl.style.height = '150px';
-          wordCountEl.textContent = '0 / 500 words';
-          wordCountEl.classList.remove('over-limit');
+          window.location.href = 'thanks.html';
         } else {
           var data = await res.json();
           var errMsg = data.errors ? data.errors.map(function(e){ return e.message; }).join(', ') : 'Submission failed.';
@@ -383,11 +380,8 @@
         if (res.ok) {
           lastSubmit = Date.now();
           sessionCount++;
-          alert('Thank you! Your booking request has been sent. Tonya will be in touch soon.');
           this.reset();
-          messageEl.style.height = '150px';
-          wordCountEl.textContent = '0 / 500 words';
-          wordCountEl.classList.remove('over-limit');
+          window.location.href = 'thanks.html';
         } else {
           var data = await res.json();
           var errMsg = data.errors ? data.errors.map(function(e){ return e.message; }).join(', ') : 'Submission failed.';
