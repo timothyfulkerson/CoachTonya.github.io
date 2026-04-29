@@ -78,6 +78,10 @@
           <input type="email" id="email" name="email" required maxlength="200" autocomplete="email">
         </div>
         <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required maxlength="30" autocomplete="tel">
+        </div>
+        <div class="form-group">
           <label for="subject">Subject</label>
           <input type="text" id="subject" name="subject" required maxlength="200">
         </div>
@@ -207,13 +211,15 @@
 
       var nameEl    = document.getElementById('name');
       var emailEl   = document.getElementById('email');
+      var phoneEl   = document.getElementById('phone');
       var subjectEl = document.getElementById('subject');
 
       nameEl.value    = sanitize(nameEl.value);
+      phoneEl.value   = sanitize(phoneEl.value);
       subjectEl.value = sanitize(subjectEl.value);
       messageEl.value = sanitize(messageEl.value);
 
-      if (!nameEl.value || !emailEl.value.trim() || !subjectEl.value || !messageEl.value) {
+      if (!nameEl.value || !emailEl.value.trim() || !phoneEl.value || !subjectEl.value || !messageEl.value) {
         alert('Please fill in all fields.');
         return;
       }
