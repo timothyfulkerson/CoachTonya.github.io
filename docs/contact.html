@@ -297,5 +297,13 @@
     });
   })();
   </script>
+  <script>
+    window.addEventListener('pageshow', function () {
+      document.getElementById('contactForm').reset();
+      document.getElementById('bookingForm').reset();
+      document.getElementById('wordCount').textContent = '0 / 500 words';
+      document.getElementById('bookingWordCount').textContent = '0 / 500 words';
+    });
+  </script>
 </body>
 </html>
