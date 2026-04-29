@@ -639,6 +639,12 @@ section {
   font-size: 0.9rem;
 }
 
+#contactForm .form-group label::after,
+#bookingForm .form-group label::after {
+  content: ' *';
+  color: #dc2626;
+}
+
 .form-group input,
 .form-group textarea {
   width: 100%;

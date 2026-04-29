@@ -123,7 +123,7 @@
         </div>
         <div class="form-group">
           <label for="b-business">Business Name</label>
-          <input type="text" id="b-business" name="businessName" maxlength="200" autocomplete="organization">
+          <input type="text" id="b-business" name="businessName" required maxlength="200" autocomplete="organization">
         </div>
         <div class="form-group">
           <label for="b-email">Email</label>
@@ -353,7 +353,7 @@
       var subject      = sanitize(document.getElementById('b-subject').value);
       var message      = sanitize(messageEl.value);
 
-      if (!firstName || !lastName || !email || !phone || !subject || !message) {
+      if (!firstName || !lastName || !businessName || !email || !phone || !subject || !message) {
         alert('Please fill in all required fields.');
         return;
       }
