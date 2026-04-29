@@ -6,7 +6,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Contact | Coach Tonya</title>
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
   <nav>
@@ -60,11 +60,14 @@
         </ul>
       </div>
 
-      <form class="contact-form" id="contactForm" novalidate>
+      <form class="contact-form" id="contactForm"
+            method="POST" action="https://formspree.io/f/xbdqnarv" novalidate>
         <!-- Honeypot: hidden from users, filled only by bots -->
         <div style="display:none;" aria-hidden="true">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
+        <!-- Redirect after submission -->
+        <input type="hidden" name="_next" id="contactNext">
 
         <div class="form-group">
           <label for="name">Name</label>
@@ -108,10 +111,13 @@
         </ul>
       </div>
 
-      <form class="contact-form" id="bookingForm" novalidate>
+      <form class="contact-form" id="bookingForm"
+            method="POST" action="https://formspree.io/f/mdayqloo" novalidate>
         <div style="display:none;" aria-hidden="true">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
+        <!-- Redirect after submission -->
+        <input type="hidden" name="_next" id="bookingNext">
 
         <div class="form-group">
           <label for="b-first-name">First Name</label>
@@ -159,22 +165,8 @@
 
   <script>
   (function () {
-    /*
-      SETUP REQUIRED — Formspree (free at formspree.io):
-      1. Sign up at https://formspree.io
-      2. Create a new form, set destination to: Tonya@CoachTonya.io
-      3. Copy your Form ID (looks like: xpwzokbj)
-      4. Replace 'YOUR_FORMSPREE_ID' below with that ID
-    */
-    var FORMSPREE_ID = 'xbdqnarv';
-
     var WORD_LIMIT = 500;
-    var RATE_LIMIT_MS = 60000;   // 1 minute between submissions
-    var MAX_PER_SESSION = 3;     // max 3 submissions per page session
-    var MAX_TEXTAREA_HEIGHT = 300; // px — twice the default 150px
-
-    var lastSubmit = 0;
-    var sessionCount = 0;
+    var MAX_TEXTAREA_HEIGHT = 300;
 
     function countWords(str) {
       var t = str.trim();
@@ -190,18 +182,12 @@
 
     messageEl.addEventListener('input', function () {
       var words = countWords(this.value);
-
       if (words > WORD_LIMIT) {
-        // Hard-trim to limit
-        var trimmed = this.value.trim().split(/\s+/).slice(0, WORD_LIMIT).join(' ');
-        this.value = trimmed;
+        this.value = this.value.trim().split(/\s+/).slice(0, WORD_LIMIT).join(' ');
         words = WORD_LIMIT;
       }
-
       wordCountEl.textContent = words + ' / ' + WORD_LIMIT + ' words';
       wordCountEl.classList.toggle('over-limit', words >= WORD_LIMIT);
-
-      // Auto-expand one line at a time up to MAX_TEXTAREA_HEIGHT
       if (words < WORD_LIMIT) {
         var lineHeight = parseFloat(window.getComputedStyle(this).lineHeight) || 24;
         if (this.scrollHeight > this.offsetHeight && this.offsetHeight < MAX_TEXTAREA_HEIGHT) {
@@ -210,88 +196,38 @@
       }
     });
 
-    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Honeypot check
-      if (document.querySelector('input[name="_gotcha"]').value !== '') return;
+      if (document.querySelector('#contactForm input[name="_gotcha"]').value !== '') return;
 
-      // Rate limiting
-      var now = Date.now();
-      if (now - lastSubmit < RATE_LIMIT_MS) {
-        var secs = Math.ceil((RATE_LIMIT_MS - (now - lastSubmit)) / 1000);
-        alert('Please wait ' + secs + ' seconds before submitting again.');
-        return;
-      }
-      if (sessionCount >= MAX_PER_SESSION) {
-        alert('Maximum submissions reached. Please email Tonya@CoachTonya.io directly.');
-        return;
-      }
-
-      // Word count guard
       var words = countWords(messageEl.value);
       if (words === 0) { alert('Please enter a message.'); return; }
       if (words > WORD_LIMIT) { alert('Please keep your message under 500 words.'); return; }
 
-      // Sanitize inputs
-      var name    = sanitize(document.getElementById('name').value);
-      var email   = document.getElementById('email').value.trim();
-      var subject = sanitize(document.getElementById('subject').value);
-      var message = sanitize(messageEl.value);
+      var nameEl    = document.getElementById('name');
+      var emailEl   = document.getElementById('email');
+      var subjectEl = document.getElementById('subject');
 
-      if (!name || !email || !subject || !message) {
+      nameEl.value    = sanitize(nameEl.value);
+      subjectEl.value = sanitize(subjectEl.value);
+      messageEl.value = sanitize(messageEl.value);
+
+      if (!nameEl.value || !emailEl.value.trim() || !subjectEl.value || !messageEl.value) {
         alert('Please fill in all fields.');
         return;
       }
 
-      var btn = this.querySelector('.submit-button');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-
-      try {
-        var res = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, email: email, subject: subject, message: message })
-        });
-
-        if (res.ok) {
-          lastSubmit = Date.now();
-          sessionCount++;
-          this.reset();
-          window.location.href = 'thanks.html';
-        } else {
-          var data = await res.json();
-          var errMsg = data.errors ? data.errors.map(function(e){ return e.message; }).join(', ') : 'Submission failed.';
-          throw new Error(errMsg);
-        }
-      } catch (err) {
-        console.error(err);
-        alert('There was an error sending your message. Please email Tonya@CoachTonya.io directly.');
-      } finally {
-        btn.textContent = 'Send Message';
-        btn.disabled = false;
-      }
+      document.getElementById('contactNext').value = new URL('thanks.html', window.location.href).href;
+      this.submit();
     });
   })();
   </script>
 
   <script>
   (function () {
-    /*
-      SETUP REQUIRED — Formspree (free at formspree.io):
-      1. Create a second form for booking, destination: Tonya@CoachTonya.io
-      2. Copy the new Form ID and replace 'YOUR_BOOKING_FORMSPREE_ID' below
-    */
-    var BOOKING_FORMSPREE_ID = 'mdayqloo';
-
     var WORD_LIMIT = 500;
-    var RATE_LIMIT_MS = 60000;
-    var MAX_PER_SESSION = 3;
     var MAX_TEXTAREA_HEIGHT = 300;
-
-    var lastSubmit = 0;
-    var sessionCount = 0;
 
     function countWords(str) {
       var t = str.trim();
@@ -307,16 +243,12 @@
 
     messageEl.addEventListener('input', function () {
       var words = countWords(this.value);
-
       if (words > WORD_LIMIT) {
-        var trimmed = this.value.trim().split(/\s+/).slice(0, WORD_LIMIT).join(' ');
-        this.value = trimmed;
+        this.value = this.value.trim().split(/\s+/).slice(0, WORD_LIMIT).join(' ');
         words = WORD_LIMIT;
       }
-
       wordCountEl.textContent = words + ' / ' + WORD_LIMIT + ' words';
       wordCountEl.classList.toggle('over-limit', words >= WORD_LIMIT);
-
       if (words < WORD_LIMIT) {
         var lineHeight = parseFloat(window.getComputedStyle(this).lineHeight) || 24;
         if (this.scrollHeight > this.offsetHeight && this.offsetHeight < MAX_TEXTAREA_HEIGHT) {
@@ -325,75 +257,37 @@
       }
     });
 
-    document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       if (document.querySelector('#bookingForm input[name="_gotcha"]').value !== '') return;
-
-      var now = Date.now();
-      if (now - lastSubmit < RATE_LIMIT_MS) {
-        var secs = Math.ceil((RATE_LIMIT_MS - (now - lastSubmit)) / 1000);
-        alert('Please wait ' + secs + ' seconds before submitting again.');
-        return;
-      }
-      if (sessionCount >= MAX_PER_SESSION) {
-        alert('Maximum submissions reached. Please email Tonya@CoachTonya.io directly.');
-        return;
-      }
 
       var words = countWords(messageEl.value);
       if (words === 0) { alert('Please enter a message.'); return; }
       if (words > WORD_LIMIT) { alert('Please keep your message under 500 words.'); return; }
 
-      var firstName    = sanitize(document.getElementById('b-first-name').value);
-      var lastName     = sanitize(document.getElementById('b-last-name').value);
-      var businessName = sanitize(document.getElementById('b-business').value);
-      var email        = document.getElementById('b-email').value.trim();
-      var phone        = sanitize(document.getElementById('b-phone').value);
-      var subject      = sanitize(document.getElementById('b-subject').value);
-      var message      = sanitize(messageEl.value);
+      var firstNameEl = document.getElementById('b-first-name');
+      var lastNameEl  = document.getElementById('b-last-name');
+      var businessEl  = document.getElementById('b-business');
+      var emailEl     = document.getElementById('b-email');
+      var phoneEl     = document.getElementById('b-phone');
+      var subjectEl   = document.getElementById('b-subject');
 
-      if (!firstName || !lastName || !businessName || !email || !phone || !subject || !message) {
+      firstNameEl.value = sanitize(firstNameEl.value);
+      lastNameEl.value  = sanitize(lastNameEl.value);
+      businessEl.value  = sanitize(businessEl.value);
+      phoneEl.value     = sanitize(phoneEl.value);
+      subjectEl.value   = sanitize(subjectEl.value);
+      messageEl.value   = sanitize(messageEl.value);
+
+      if (!firstNameEl.value || !lastNameEl.value || !businessEl.value ||
+          !emailEl.value.trim() || !phoneEl.value || !subjectEl.value || !messageEl.value) {
         alert('Please fill in all required fields.');
         return;
       }
 
-      var btn = this.querySelector('.submit-button');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-
-      try {
-        var res = await fetch('https://formspree.io/f/' + BOOKING_FORMSPREE_ID, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            businessName: businessName,
-            email: email,
-            phone: phone,
-            subject: subject,
-            message: message
-          })
-        });
-
-        if (res.ok) {
-          lastSubmit = Date.now();
-          sessionCount++;
-          this.reset();
-          window.location.href = 'thanks.html';
-        } else {
-          var data = await res.json();
-          var errMsg = data.errors ? data.errors.map(function(e){ return e.message; }).join(', ') : 'Submission failed.';
-          throw new Error(errMsg);
-        }
-      } catch (err) {
-        console.error(err);
-        alert('There was an error sending your booking request. Please email Tonya@CoachTonya.io directly.');
-      } finally {
-        btn.textContent = 'Request Booking';
-        btn.disabled = false;
-      }
+      document.getElementById('bookingNext').value = new URL('thanks.html', window.location.href).href;
+      this.submit();
     });
   })();
   </script>
