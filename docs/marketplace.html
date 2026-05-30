@@ -63,10 +63,16 @@
           <button onclick="toggleSummary()" id="summary-btn" style="background: transparent; border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.8rem; font-family: inherit;">Read More</button>
         </div>
         <div style="text-align: center; padding: 1.5rem; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-top: none;">
-          <p style="font-size: 2rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 0.75rem;">$24.99</p>
-          <button class="buy-button" onclick="buyProduct('unloved-book', 1)" style="padding: 0.75rem 2rem; font-size: 1rem;">
-            Buy Now
-          </button>
+          <p style="font-size: 2rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 0.25rem;">$24.99 <span style="font-size: 1rem; font-weight: normal; color: var(--text-secondary);">Physical</span></p>
+          <p style="font-size: 1.4rem; color: var(--accent-gold); font-weight: bold; margin-bottom: 0.75rem;">$14.99 <span style="font-size: 1rem; font-weight: normal; color: var(--text-secondary);">Digital</span></p>
+          <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <button class="buy-button" onclick="buyProduct('unloved-book')" style="padding: 0.75rem 1.5rem; font-size: 1rem;">
+              Buy Physical
+            </button>
+            <button class="buy-button" onclick="buyProduct('unloved-book-digital')" style="padding: 0.75rem 1.5rem; font-size: 1rem;">
+              Buy Digital
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -99,10 +105,25 @@
           </div>
           <div class="product-info">
             <span class="product-category-tag">Books</span>
-            <h4>UNLOVED</h4>
+            <h4>UNLOVED — Physical Copy</h4>
             <p class="description">A Blueprint for Healing the Child You Used to Be.</p>
             <p class="price">$24.99</p>
-            <button class="buy-button" onclick="buyProduct('unloved-book', 1)">Buy Now</button>
+            <button class="buy-button" onclick="buyProduct('unloved-book')">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-item" data-category="books">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="images/book-cover.jpg" alt="UNLOVED Book Cover" />
+          </div>
+          <div class="product-info">
+            <span class="product-category-tag">Books</span>
+            <h4>UNLOVED — Digital Copy</h4>
+            <p class="description">A Blueprint for Healing the Child You Used to Be. Instant digital download.</p>
+            <p class="price">$14.99</p>
+            <button class="buy-button" onclick="buyProduct('unloved-book-digital')">Buy Now</button>
           </div>
         </div>
       </div>
@@ -315,7 +336,8 @@
       5. Replace 'YOUR_STRIPE_PAYMENT_LINK' below with that URL
     */
     var PAYMENT_LINKS = {
-      'unloved-book': 'https://buy.stripe.com/cNi00k6qk77UayP8IZ14400'
+      'unloved-book': 'https://buy.stripe.com/cNi00k6qk77UayP8IZ14400',
+      'unloved-book-digital': 'YOUR_STRIPE_PAYMENT_LINK_DIGITAL'
     };
 
     function buyProduct(productId) {
